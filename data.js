@@ -1,6 +1,6 @@
-const teacherData = [{ id: "t01", name: "Mrs Freeman", class: "5C" }];
+export const teacherData = [{ id: "t01", name: "Mrs Freeman", class: "5C" }];
 
-const studentData = [
+export const studentData = [
   {
     id: "s01",
     name: "Alice",
@@ -38,7 +38,7 @@ const studentData = [
   },
 ];
 
-const classFeedbackData = [
+export const classFeedbackData = [
   {
     class: "5C",
     feedback_text: "Well done class, you've all been reading!",
@@ -51,7 +51,7 @@ const classFeedbackData = [
   },
 ];
 
-const feedbackData = [
+export const feedbackData = [
   { student_id: "s01", feedback_text: "Welll done, Alice!" },
   { student_id: "s02", feedback_text: "Welll done, Samira!" },
   { student_id: "s03", feedback_text: "Welll done, Juan!" },
@@ -85,7 +85,7 @@ const dictionaryData = [
   },
 ];
 
-const allBooksData = [
+export const allBooksData = [
   {
     id: 1,
     student_id: "s01",
@@ -208,7 +208,7 @@ const allBooksData = [
   },
 ];
 
-const summaryData = [
+export const summaryData = [
   {
     student_id: "s01",
     book_id: 1,
