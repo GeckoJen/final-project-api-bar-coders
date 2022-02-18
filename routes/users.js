@@ -56,7 +56,7 @@ router.post("/nobook", async function (req, res) {
 
 router.get("/completebooks", async function (req, res) {
   const completeBooks = await completeBooks();
-  req.json({
+  res.json({
     success: true,
     payload: completeBooks,
   });
@@ -65,9 +65,19 @@ router.get("/completebooks", async function (req, res) {
 // dictionary
 router.get("/dictionary", async function (req, res) {
   const dictionary = await dictionary();
-  req.json({
+  res.json({
     success: true,
     payload: dictionary,
+  });
+});
+
+// new word or old word - fetch to api - if input value api request
+
+router.get("/messages", async function (req, res) {
+  const messages = await messages();
+  res.json({
+    success: true,
+    payload: messages,
   });
 });
 
