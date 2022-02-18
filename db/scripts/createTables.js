@@ -10,7 +10,7 @@ const sqlString = `CREATE TABLE IF NOT EXISTS teachers (
       name TEXT,
       avatar VARCHAR,
       class VARCHAR,
-      teacher_id,
+      teacher_id VARCHAR,
       CONSTRAINT fk_teacher_id
       FOREIGN KEY(teacher_id)
       REFERENCES teachers(id)
@@ -19,7 +19,11 @@ const sqlString = `CREATE TABLE IF NOT EXISTS teachers (
       id SERIAL PRIMARY KEY,
       date DATE DEFAULT CURRENT_DATE,
       class VARCHAR,
-      feedback_text VARCHAR
+      feedback_text VARCHAR,
+      teacher_id VARCHAR,
+      CONSTRAINT fk_teacher_id
+      FOREIGN KEY(teacher_id)
+      REFERENCES teachers(id)
     );
     CREATE TABLE IF NOT EXISTS feedback ( 
       id SERIAL PRIMARY KEY,
