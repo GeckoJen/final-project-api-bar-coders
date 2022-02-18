@@ -59,7 +59,7 @@ export const feedbackData = [
   { student_id: "s05", feedback_text: "Welll done, Yasmin!" },
 ];
 
-const dictionaryData = [
+export const dictionaryData = [
   { student_id: "s01", word: "accommodate", definition: "to have room for" },
   {
     student_id: "s02",
