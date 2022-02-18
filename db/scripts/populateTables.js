@@ -6,7 +6,7 @@ import {
   classFeedbackData,
   allBooksData,
   summaryData,
-} from "../../data";
+} from "../../data.js";
 import query from "../index.js";
 
 async function populateTeachersTable() {
