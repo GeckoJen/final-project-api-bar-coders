@@ -9,18 +9,18 @@ const sqlString = `CREATE TABLE IF NOT EXISTS teachers (
       id VARCHAR PRIMARY KEY,
       name TEXT,
       avatar VARCHAR,
-      class VARCHAR,
-      CONSTRAINT fk_class
-      FOREIGN KEY(class)
+      class_id VARCHAR,
+      CONSTRAINT fk_class_id
+      FOREIGN KEY(class_id)
       REFERENCES teachers(class)
     );
     CREATE TABLE IF NOT EXISTS classfeedback ( 
       id SERIAL PRIMARY KEY,
       date DATE DEFAULT CURRENT_DATE,
-      class VARCHAR,
+      class_id VARCHAR,
       feedback_text VARCHAR,
-      CONSTRAINT fk_class
-      FOREIGN KEY(class)
+      CONSTRAINT fk_class_id
+      FOREIGN KEY(class_id)
       REFERENCES teachers(class)
     );
     CREATE TABLE IF NOT EXISTS feedback ( 
