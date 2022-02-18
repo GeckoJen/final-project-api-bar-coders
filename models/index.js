@@ -1,24 +1,24 @@
 // models tbc
 
-getStudentData;
-updateBook;
-newBook;
-noBook;
-completeBooks;
-dictionary;
-newWord;
-messages;
-getAllStudentsAndTeacher;
-getWholeClassSevenStat;
-getWholeClassPages;
-getWholeClassMinutes;
-getWholeClassBooksFinished;
-individualSevenStat;
-individualPages;
-individualMinutes;
-individualBooksFinished;
-classMessageLog;
-newStudentFeedback;
-studentMessageLog;
-studentSummaries;
-newClassFeedback;
+function getStudentData() {}
+function updateBook() {}
+function newBook() {}
+function noBook() {}
+function completeBooks() {}
+function dictionary() {}
+function newWord() {}
+function messages() {}
+function getAllStudentsAndTeacher() {}
+function getWholeClassSevenStat() {}
+function getWholeClassPages() {}
+function getWholeClassMinutes() {}
+function getWholeClassBooksFinished() {}
+function individualSevenStat() {}
+function individualPages() {}
+function individualMinutes() {}
+function individualBooksFinished() {}
+function classMessageLog() {}
+function newStudentFeedback() {}
+function studentMessageLog() {}
+function studentSummaries() {}
+function newClassFeedback() {}
