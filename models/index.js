@@ -1,7 +1,12 @@
 // models tbc
 import query from "../db/index.js";
 
-export async function getStudentData() {}
+export async function getStudentData() {
+      const data = await query(
+            `SELECT * FROM feedback INNER JOIN students ON students.id = feedback.student_id INNER JOIN classfeedback ON students.class = classfeedback.class WHERE students.id = 's01';`
+      );
+      return data.rows;
+}
 export async function updateBook() {}
 export async function newBook() {}
 export async function noBook() {}
