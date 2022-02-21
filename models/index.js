@@ -2,14 +2,19 @@
 import query from "../db/index.js";
 
 export async function getCurrentBooks(id) {
-      const data = await query(
-            `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
-            [id]
-      );
-      return data.rows;
+  const data = await query(
+    `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
+    [id]
+  );
+  return data.rows;
 }
 export async function updateBook() {}
-export async function newBook() {}
+export async function newBook(id, studentId, title, author, cover, totalPages) {
+  const data = await query(
+    `INSERT INTO allbooks (id, student_id, title,author,cover, total_pages) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+    [id, studentId, title, author, cover, totalPages]
+  );
+}
 export async function noBook() {}
 export async function completeBooks() {}
 export async function dictionary() {}
