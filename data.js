@@ -42,12 +42,17 @@ export const classFeedbackData = [
   {
     class: "5C",
     feedback_text: "Well done class, you've all been reading!",
-    teacher_id: "T01",
+
+
+    teacher_id: "t01",
+
   },
   {
     class: "5C",
     feedback_text: "Remember to bring in the book you're reading tomorrow!",
-    teacher_id: "T01",
+
+    teacher_id: "t01",
+
   },
 ];
 
@@ -59,7 +64,9 @@ export const feedbackData = [
   { student_id: "s05", feedback_text: "Welll done, Yasmin!" },
 ];
 
-const dictionaryData = [
+
+export const dictionaryData = [
+
   { student_id: "s01", word: "accommodate", definition: "to have room for" },
   {
     student_id: "s02",
