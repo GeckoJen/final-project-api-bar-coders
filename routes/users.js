@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import {
-      getStudentData,
+      getCurrentBooks,
       updateBook,
       newBook,
       noBook,
@@ -31,9 +31,9 @@ import {
 // });
 
 // GET student details for homepage and log your reading page
-router.get("/students/:id", async function (req, res) {
+router.get("/books/:id", async function (req, res) {
       const { id } = req.params;
-      const studentData = await getStudentData(id);
+      const studentData = await getCurrentBooks(id);
       res.json({
             success: true,
             payload: studentData,
@@ -77,7 +77,7 @@ router.post("/newbook/:id", async function (req, res) {
 
 // Cant find new book
 
-router.post("/nobook/:id", async function (req, res) {
+router.post("/nobook/", async function (req, res) {
       const { id: student_id } = req.params;
       const { title, author, total_pages } = req.body;
       const noBook = await noBook(student_id, title, author, total_pages);
@@ -108,7 +108,7 @@ router.get("/dictionary", async function (req, res) {
 
 // add to dictionary
 
-router.post("/dictionary/:id", async function (req, res) {
+router.post("/dictionary/", async function (req, res) {
       const { id: student_id } = req.params;
       const { word } = req.body;
       const newWord = await newWord(student_id, word);

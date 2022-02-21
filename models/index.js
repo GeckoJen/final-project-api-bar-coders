@@ -1,9 +1,10 @@
 // models tbc
 import query from "../db/index.js";
 
-export async function getStudentData() {
+export async function getCurrentBooks(id) {
       const data = await query(
-            `SELECT * FROM feedback INNER JOIN students ON students.id = feedback.student_id INNER JOIN classfeedback ON students.class = classfeedback.class WHERE students.id = 's01';`
+            `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
+            [id]
       );
       return data.rows;
 }
