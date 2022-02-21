@@ -2,19 +2,53 @@
 import query from "../db/index.js";
 
 export async function getCurrentBooks(id) {
-  const data = await query(
-    `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
-    [id]
-  );
-  return data.rows;
+      const data = await query(
+            `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
+            [id]
+      );
+      return data.rows;
 }
-export async function updateBook() {}
-export async function newBook(id, studentId, title, author, cover, totalPages) {
-  const data = await query(
-    `INSERT INTO allbooks (id, student_id, title,author,cover, total_pages) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
-    [id, studentId, title, author, cover, totalPages]
-  );
+
+export async function newBook(
+      bookId,
+      studentId,
+      title,
+      author,
+      cover,
+      totalPages
+) {
+      const data = await query(
+            `INSERT INTO allbooks (book_id, student_id, title, author, cover, total_pages) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+            [bookId, studentId, title, author, cover, totalPages]
+      );
 }
+export async function deleteBook(id) {
+      const data = await query(
+            `DELETE FROM summaries WHERE student_id = $1;
+            DELETE FROM allbooks WHERE student_id = $1`,
+            [id]
+      );
+}
+export async function newSummary(
+      bookId,
+      studentId,
+      currentPage,
+      summary,
+      isComplete,
+      minutesRead
+) {
+      const data = await query(
+            `INSERT INTO summaries (book_id, student_id, current_page,summary,isComplete,minutes_read) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;`,
+            [bookId, studentId, currentPage, summary, isComplete, minutesRead]
+      );
+}
+
+export async function deleteSummary(id) {
+      const data = await query(`DELETE FROM summaries WHERE student_id = $1;`, [
+            id,
+      ]);
+}
+
 export async function noBook() {}
 export async function completeBooks() {}
 export async function dictionary() {}
