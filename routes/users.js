@@ -31,8 +31,9 @@ import {
 // });
 
 // GET student details for homepage and log your reading page
-router.get("/studenthome", async function (req, res) {
-      const studentData = await getStudentData();
+router.get("/students/:id", async function (req, res) {
+      const { id } = req.params;
+      const studentData = await getStudentData(id);
       res.json({
             success: true,
             payload: studentData,
@@ -40,13 +41,15 @@ router.get("/studenthome", async function (req, res) {
 });
 
 // POST for log your reading page
-router.post("/readingpage", async function (req, res) {
+router.post("/summaries/:id", async function (req, res) {
+      const { id } = req.params;
       const { current_page, minutes_read, summary, isComplete } = req.body;
       const updateBook = await updateBook(
             current_page,
             minutes_read,
             summary,
-            isComplete
+            isComplete,
+            id
       );
       res.json({
             success: true,
@@ -56,8 +59,9 @@ router.post("/readingpage", async function (req, res) {
 
 // POST for new book pageB
 
-router.post("/newbook", async function (req, res) {
-      const { student_id, title, cover, author, total_pages } = req.body;
+router.post("/newbook/:id", async function (req, res) {
+      const { id: student_id } = req.params;
+      const { title, cover, author, total_pages } = req.body;
       const newBook = await newBook(
             student_id,
             title,
@@ -73,8 +77,9 @@ router.post("/newbook", async function (req, res) {
 
 // Cant find new book
 
-router.post("/nobook", async function (req, res) {
-      const { student_id, title, author, total_pages } = req.body;
+router.post("/nobook/:id", async function (req, res) {
+      const { id: student_id } = req.params;
+      const { title, author, total_pages } = req.body;
       const noBook = await noBook(student_id, title, author, total_pages);
       res.json({
             success: true,
@@ -103,9 +108,10 @@ router.get("/dictionary", async function (req, res) {
 
 // add to dictionary
 
-router.post("/dictionary", async function (req, res) {
+router.post("/dictionary/:id", async function (req, res) {
+      const { id: student_id } = req.params;
       const { word } = req.body;
-      const newWord = await newWord(word);
+      const newWord = await newWord(student_id, word);
       res.json({
             success: true,
             payload: newWord,
@@ -170,7 +176,7 @@ router.get("/wholeclassmoreinfo", async function (req, res) {
       });
 });
 
-router.post("/wholeclassmoreinfo", async function (req, res) {
+router.post("/wholeclassmoreinfo/:id", async function (req, res) {
       const { feedback_text } = req.body;
       const newClassFeedback = await newClassFeedback(feedback_text);
       res.json({
