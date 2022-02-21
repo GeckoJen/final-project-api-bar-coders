@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./bin/www.js",
     "dbcreatetables": "node db/scripts/createTables.js",
-    "dbpopulatetables": "node db/scripts/populateTables.js"
+    "dbpopulatetables": "node db/scripts/populateTables.js",
+    "dbpopulatestudents": "node db/scripts/populatestudents.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
