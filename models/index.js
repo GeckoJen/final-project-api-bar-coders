@@ -3,7 +3,7 @@ import query from "../db/index.js";
 
 export async function getCurrentBooks(id) {
       const data = await query(
-            `SELECT * from allbooks INNER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND summaries.iscomplete = false`,
+            `SELECT * from allbooks FULL OUTER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = 's01' AND (summaries.iscomplete is NULL or summaries.iscomplete = false)`,
             [id]
       );
       return data.rows;
