@@ -61,7 +61,7 @@ export async function getWords(id) {
 
 export async function addWord(studentId, word, definition) {
   const data = await query(
-    `INSERT INTO summaries (student_id, word,definition) VALUES ($1,$2,$3) RETURNING *;`,
+    `INSERT INTO dictionary (student_id, word,definition) VALUES ($1,$2,$3) RETURNING *;`,
     [studentId, word, definition]
   );
 }
