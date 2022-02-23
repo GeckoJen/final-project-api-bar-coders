@@ -1,12 +1,11 @@
 {
-
   "name": "backend-4-week-project",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "node ./bin/www.js",
-    "dev": "nodemon ./bin/www.js",
+    "dev": "nodemon -r dotenv/config ./bin/www.js",
     "dbcreatetables": "node db/scripts/createTables.js",
     "dbpopulatetables": "node db/scripts/populateTables.js",
     "dbpopulatestudents": "node db/scripts/populatestudents.js",
@@ -26,5 +25,4 @@
     "morgan": "~1.9.1",
     "pg": "^8.7.3"
   }
-
 }

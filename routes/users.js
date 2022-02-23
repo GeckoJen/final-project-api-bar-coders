@@ -40,7 +40,8 @@ router.get("/books/:id", async function (req, res) {
   const progressData = await getProgress(id);
   res.json({
     success: true,
-    payload: [studentData, getProgress],
+    streak: progressData,
+    payload: studentData,
   });
 });
 

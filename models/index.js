@@ -23,6 +23,7 @@ GROUP BY weekly, name
 ORDER  BY weekly DESC LIMIT 1`,
     [id]
   );
+  return data.rows;
 }
 
 export async function newBook(
