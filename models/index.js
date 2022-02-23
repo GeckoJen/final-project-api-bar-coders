@@ -12,15 +12,16 @@ export async function getCurrentBooks(id) {
 export async function getProgress(id) {
       const data = await query(
             `SELECT
-    date_part('week', summaries.date_created::date) AS weekly,
-    COUNT(DISTINCT summaries.date_created),
-    students.name
-FROM summaries
-INNER JOIN students
-ON  summaries.student_id=students.id
-WHERE student_id = $1
-GROUP BY weekly, name
-ORDER  BY weekly DESC LIMIT 1`,
+            date_part('week', summaries.date_created::date) AS weekly,
+            COUNT(DISTINCT summaries.date_created),
+            SUM(Minutes_read) AS minutes_total,
+            students.name
+        FROM summaries
+        INNER JOIN students
+        ON  summaries.student_id=students.id
+        WHERE student_id = 's01'
+        GROUP BY weekly, name
+        ORDER  BY weekly DESC LIMIT 1`,
             [id]
       );
       return data.rows;
