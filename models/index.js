@@ -19,7 +19,7 @@ export async function getProgress(id) {
         FROM summaries
         INNER JOIN students
         ON  summaries.student_id=students.id
-        WHERE student_id = 's01'
+        WHERE student_id = $1
         GROUP BY weekly, name
         ORDER  BY weekly DESC LIMIT 1`,
     [id]
