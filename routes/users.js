@@ -8,17 +8,19 @@ import {
       getCompleteBooks,
       getWords,
       addWord,
+      getStudentFeedback,
+      getClassFeedback,
 } from "../models/index.js";
 
 // GET student details for homepage and log your reading page
 router.get("/books/:id", async function (req, res) {
       const { id } = req.params;
-      const studentData = await getCurrentBooks(id);
+      const bookData = await getCurrentBooks(id);
       const progressData = await getProgress(id);
       res.json({
             success: true,
-            streak: progressData,
-            payload: studentData,
+            progressData: progressData,
+            bookData: bookData,
       });
 });
 
@@ -46,15 +48,6 @@ router.post("/summaries/", async function (req, res) {
       });
 });
 
-router.delete("/summaries/:id", async function (req, res) {
-      const { id } = req.params;
-      const data = await deleteSummary(id);
-      res.json({
-            success: true,
-            payload: data,
-      });
-});
-
 // POST for new book pageB
 
 router.post("/books", async function (req, res) {
@@ -67,17 +60,6 @@ router.post("/books", async function (req, res) {
             cover,
             totalPages
       );
-      res.json({
-            success: true,
-            payload: data,
-      });
-});
-
-// for the backenders
-
-router.delete("/books/:id", async function (req, res) {
-      const { id } = req.params;
-      const data = await deleteBook(id);
       res.json({
             success: true,
             payload: data,
@@ -117,12 +99,35 @@ router.post("/dictionary", async function (req, res) {
 
 // new word or old word - fetch to api - if input value api request
 
-// router.get("/feedback/:id", async function (req, res) {
-//   const messages = await getFeedback();
-//   res.json({
-//     success: true,
-//     payload: messages,
-//   });
-// });
+router.get("/feedback/:id", async function (req, res) {
+      const { id } = req.params;
+      const studentFeedBack = await getStudentFeedback(id);
+      const classFeedback = await getClassFeedback();
+      res.json({
+            success: true,
+            classFeedback: classFeedback,
+            studentFeedBack: studentFeedBack,
+      });
+});
+
+// for the backenders
+
+router.delete("/summaries/:id", async function (req, res) {
+      const { id } = req.params;
+      const data = await deleteSummary(id);
+      res.json({
+            success: true,
+            payload: data,
+      });
+});
+
+router.delete("/books/:id", async function (req, res) {
+      const { id } = req.params;
+      const data = await deleteBook(id);
+      res.json({
+            success: true,
+            payload: data,
+      });
+});
 
 export default router;

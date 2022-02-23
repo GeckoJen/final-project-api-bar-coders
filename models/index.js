@@ -92,4 +92,16 @@ export async function addWord(studentId, word, definition) {
       );
 }
 
-export async function get() {}
+export async function getStudentFeedback(id) {
+      const data = await query(`SELECT * from feedback WHERE student_id = $1`, [
+            id,
+      ]);
+      return data.rows;
+}
+
+export async function getClassFeedback() {
+      const data = await query(
+            `SELECT * from classfeedback WHERE class = '5C'`
+      );
+      return data.rows;
+}
