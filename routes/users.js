@@ -8,7 +8,6 @@ import {
       getCompleteBooks,
       getWords,
       addWord,
-      messages,
 } from "../models/index.js";
 
 // GET student details for homepage and log your reading page
