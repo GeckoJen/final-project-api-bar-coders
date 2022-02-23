@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import {
   getCurrentBooks,
+  getProgress,
   newSummary,
   newBook,
   noBook,
@@ -36,9 +37,10 @@ import {
 router.get("/books/:id", async function (req, res) {
   const { id } = req.params;
   const studentData = await getCurrentBooks(id);
+  const progressData = await getProgress(id);
   res.json({
     success: true,
-    payload: studentData,
+    payload: [studentData, getProgress],
   });
 });
 

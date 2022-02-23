@@ -9,6 +9,22 @@ export async function getCurrentBooks(id) {
   return data.rows;
 }
 
+export async function getProgress(id) {
+  const data = await query(
+    `SELECT
+    date_part('week', summaries.date_created::date) AS weekly,
+    COUNT(DISTINCT summaries.date_created),
+    students.name
+FROM summaries
+INNER JOIN students
+ON  summaries.student_id=students.id
+WHERE student_id = $1
+GROUP BY weekly, name
+ORDER  BY weekly DESC LIMIT 1`,
+    [id]
+  );
+}
+
 export async function newBook(
   bookId,
   studentId,
