@@ -67,7 +67,14 @@ export async function deleteSummary(id) {
 }
 
 export async function noBook() {}
-export async function completeBooks() {}
+
+export async function getCompleteBooks(id) {
+  const data = await query(
+    `SELECT allbooks.id, allbooks.student_id, allbooks.date_created, allbooks.cover, allbooks.title, allbooks.author, allbooks.cover, allbooks.total_pages, summaries.iscomplete, MAX(summaries.current_page) AS current_page, MAX(summaries.current_page)::float/ SUM(DISTINCT allbooks.total_pages)* 100  AS percentageComplete from allbooks FULL OUTER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND (summaries.iscomplete is NULL or summaries.iscomplete = false ) GROUP BY allbooks.id, summaries.iscomplete`,
+    [id]
+  );
+  return data.rows;
+}
 
 export async function getWords(id) {
   const data = await query(`SELECT * FROM dictionary WHERE student_id = $1`, [
@@ -83,18 +90,4 @@ export async function addWord(studentId, word, definition) {
   );
 }
 
-export async function messages() {}
-export async function getAllStudentsAndTeacher() {}
-export async function getWholeClassSevenStat() {}
-export async function getWholeClassPages() {}
-export async function getWholeClassMinutes() {}
-export async function getWholeClassBooksFinished() {}
-export async function individualSevenStat() {}
-export async function individualPages() {}
-export async function individualMinutes() {}
-export async function individualBooksFinished() {}
-export async function classMessageLog() {}
-export async function newStudentFeedback() {}
-export async function studentMessageLog() {}
-export async function studentSummaries() {}
-export async function newClassFeedback() {}
+export async function get() {}

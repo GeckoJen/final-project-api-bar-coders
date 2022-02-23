@@ -5,33 +5,11 @@ import {
   getProgress,
   newSummary,
   newBook,
-  noBook,
-  completeBooks,
+  getCompleteBooks,
   getWords,
   addWord,
   messages,
-  getAllStudentsAndTeacher,
-  getWholeClassSevenStat,
-  getWholeClassPages,
-  getWholeClassMinutes,
-  getWholeClassBooksFinished,
-  individualSevenStat,
-  individualPages,
-  individualMinutes,
-  individualBooksFinished,
-  classMessageLog,
-  newStudentFeedback,
-  studentMessageLog,
-  studentSummaries,
-  newClassFeedback,
-  deleteBook,
-  deleteSummary,
 } from "../models/index.js";
-
-// /* GET users listing. */
-// router.get("/", function (req, res, next) {
-//   res.json({ message: "I wish we had some information to give you ☹️" });
-// });
 
 // GET student details for homepage and log your reading page
 router.get("/books/:id", async function (req, res) {
@@ -74,7 +52,7 @@ router.delete("/summaries/:id", async function (req, res) {
 
 // POST for new book pageB
 
-router.post("/books/", async function (req, res) {
+router.post("/books", async function (req, res) {
   const { id, studentId, title, author, cover, totalPages } = req.body;
   const data = await newBook(id, studentId, title, author, cover, totalPages);
   res.json({
@@ -94,22 +72,10 @@ router.delete("/books/:id", async function (req, res) {
   });
 });
 
-// Cant find new book // needs to be changed
-
-router.post("/nobook/", async function (req, res) {
-  const { id: student_id } = req.params;
-  const { title, author, total_pages } = req.body;
-  const noBook = await noBook(student_id, title, author, total_pages);
-  res.json({
-    success: true,
-    payload: noBook,
-  });
-});
-
 // completed books
 
-router.get("/completebooks", async function (req, res) {
-  const completeBooks = await completeBooks();
+router.get("/completedbooks/:id", async function (req, res) {
+  const completeBooks = await getCompleteBooks(id);
   res.json({
     success: true,
     payload: completeBooks,
@@ -139,86 +105,11 @@ router.post("/dictionary", async function (req, res) {
 
 // new word or old word - fetch to api - if input value api request
 
-router.get("/messages", async function (req, res) {
-  const messages = await messages();
+router.get("/feedback/:id", async function (req, res) {
+  const messages = await getFeedback();
   res.json({
     success: true,
     payload: messages,
-  });
-});
-
-// teacher dashboard - whole class info
-
-router.get("/teacherhome", async function (req, res) {
-  const allStudentsAndTeacher = await getAllStudentsAndTeacher();
-  const wholeClassSevenStat = await getWholeClassSevenStat();
-  const wholeClassPages = await getWholeClassPages();
-  const wholeClassMinutes = await getWholeClassMinutes();
-  const wholeClassBooksFinished = await getWholeClassBooksFinished();
-  res.json({
-    success: true,
-    payload: [
-      allStudentsAndTeacher,
-      wholeClassSevenStat,
-      wholeClassPages,
-      wholeClassMinutes,
-      wholeClassBooksFinished,
-    ],
-  });
-});
-
-// teacher dashboard - individual info
-
-router.get("/teacherstudentview", async function (req, res) {
-  const individualSevenStat = await getindividualSevenStat();
-  const individualPages = await getindividualPages();
-  const individualMinutes = await getindividualMinutes();
-  const individualBooksFinished = await getindividualBooksFinished();
-  res.json({
-    success: true,
-    payload: [
-      individualSevenStat,
-      individualPages,
-      individualMinutes,
-      individualBooksFinished,
-    ],
-  });
-});
-
-// teacher dashboard - whole class MORE info
-
-router.get("/wholeclassmoreinfo", async function (req, res) {
-  const classMessageLog = await getClassMessageLog();
-  res.json({
-    success: true,
-    payload: classMessageLog,
-  });
-});
-
-router.post("/wholeclassmoreinfo/:id", async function (req, res) {
-  const { feedback_text } = req.body;
-  const newClassFeedback = await newClassFeedback(feedback_text);
-  res.json({
-    success: true,
-    payload: newClassFeedback,
-  });
-});
-
-router.get("/studentmoreinfo", async function (req, res) {
-  const studentMessageLog = await getStudentMessageLog();
-  const studentSummaries = await getStudentSummaries();
-  res.json({
-    success: true,
-    payload: [studentMessageLog, studentSummaries],
-  });
-});
-
-router.post("/studentmoreinfo", async function (req, res) {
-  const { feedback_text } = req.body;
-  const newStudentFeedback = await newStudentFeedback(feedback_text);
-  res.json({
-    success: true,
-    payload: newStudentFeedback,
   });
 });
 
