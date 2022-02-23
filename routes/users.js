@@ -25,7 +25,7 @@ router.get("/books/:id", async function (req, res) {
 });
 
 // POST for log your reading page
-router.post("/summaries/", async function (req, res) {
+router.post("/summaries", async function (req, res) {
       const {
             bookId,
             studentId,
