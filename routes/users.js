@@ -56,6 +56,7 @@ router.post("/books", async function (req, res) {
 // completed books
 
 router.get("/completedbooks/:id", async function (req, res) {
+  const { id } = req.params;
   const completeBooks = await getCompleteBooks(id);
   res.json({
     success: true,
