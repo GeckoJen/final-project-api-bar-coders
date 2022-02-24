@@ -6,14 +6,14 @@
   "scripts": {
     "start": "node ./bin/www.js",
     "dev": "nodemon -r dotenv/config ./bin/www.js",
-    "dbcreatetables": "node db/scripts/createTables.js",
-    "dbpopulatetables": "node db/scripts/populateTables.js",
-    "dbpopulatestudents": "node db/scripts/populatestudents.js",
-    "dbpopulateclassfeedback": "node db/scripts/populateclassfeedback.js",
-    "dbpopulatefeedback": "node db/scripts/populatefeedback.js",
-    "dbpopulatedictionary": "node db/scripts/populatedictionary.js",
-    "dbpopulateallbooks": "node db/scripts/populateallbooks.js",
-    "dbpopulatesummaries": "node db/scripts/populatesummaries.js"
+    "dbcreatetables": "node -r dotenv/config db/scripts/createTables.js",
+    "dbpopulatetables": "node -r dotenv/config db/scripts/populateTables.js",
+    "dbpopulatestudents": "node -r dotenv/config db/scripts/populatestudents.js",
+    "dbpopulateclassfeedback": "node -r dotenv/config db/scripts/populateclassfeedback.js",
+    "dbpopulatefeedback": "node -r dotenv/config db/scripts/populatefeedback.js",
+    "dbpopulatedictionary": "node -r dotenv/config db/scripts/populatedictionary.js",
+    "dbpopulateallbooks": "node -r dotenv/config db/scripts/populateallbooks.js",
+    "dbpopulatesummaries": "node -r dotenv/config db/scripts/populatesummaries.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
