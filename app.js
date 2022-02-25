@@ -12,7 +12,7 @@ import usersRouter from "./routes/users.js";
 const app = express();
 
 export const checkJwt = auth({
-  audience: "https://barcoders-staging.herokuapp.com/",
+  audience: "https://fourweekproject.herokuapp.com/",
   issuerBaseURL: `https://book-worms.eu.auth0.com`,
 });
 
