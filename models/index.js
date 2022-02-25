@@ -93,9 +93,13 @@ export async function addWord(studentId, word, definition) {
 }
 
 export async function getStudentFeedback(id) {
-  const data = await query(`SELECT * from feedback WHERE student_id = $1`, [
-    id,
-  ]);
+  const data = await query(
+    `SELECT f.student_id,s.name,t.name AS teacher,f.feedback_text,f.date from feedback f 
+  LEFT JOIN students s on f.student_id = s.id 
+  LEFT JOIN teachers t on s.class = t.class
+  WHERE student_id = $1`,
+    [id]
+  );
   return data.rows;
 }
 
