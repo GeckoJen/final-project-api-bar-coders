@@ -89,8 +89,8 @@ router.post("/dictionary", async function (req, res) {
 
 router.get("/feedback/:id", async function (req, res) {
   const { id } = req.params;
-  const studentFeedBack = await getStudentFeedback(id);
   const classFeedback = await getClassFeedback();
+  const studentFeedBack = await getStudentFeedback(id);
   res.json({
     success: true,
     classFeedback: classFeedback,
