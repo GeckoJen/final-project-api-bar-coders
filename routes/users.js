@@ -14,7 +14,7 @@ import {
 } from "../models/index.js";
 
 // GET student details for homepage and log your reading page
-router.get("/books/:id", checkJwt, async function (req, res) {
+router.get("/books/:id", async function (req, res) {
   const { id } = req.params;
   const bookData = await getCurrentBooks(id);
   const progressData = await getProgress(id);
