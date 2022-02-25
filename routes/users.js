@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { checkJwt } from "../app.js";
+
 import {
   getCurrentBooks,
   getProgress,

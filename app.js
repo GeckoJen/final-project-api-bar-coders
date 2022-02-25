@@ -16,13 +16,21 @@ export const checkJwt = auth({
   issuerBaseURL: `https://book-worms.eu.auth0.com`,
 });
 
+// getAccessToken() {
+//       const accessToken = localStorage.getItem('access_token');
+//       if (!accessToken) {
+//         throw new Error('No access token found');
+//       }
+//       return accessToken;
+//     }
+
 app.use(logger("dev"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(checkJwt);
 app.use("/", usersRouter);
 
 app.use(function (req, res, next) {
