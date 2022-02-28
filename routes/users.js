@@ -136,11 +136,19 @@ router.get("/dictionary/:id", async function (req, res) {
 router.post("/dictionary", async function (req, res, next) {
       try {
             const { studentId, word, definition } = req.body;
-            const newWord = await addWord(studentId, word, definition);
-            res.json({
-                  success: true,
-                  payload: newWord,
-            });
+            const newWord = await addWord(studentId, word);
+            if (typeof word === "string") {
+                  res.json({
+                        success: true,
+                        payload: newWord,
+                  });
+            } else {
+                  res.status(400);
+                  res.json({
+                        success: false,
+                        message: `"word" must only have letters`,
+                  });
+            }
       } catch (err) {
             next(err);
             res.status(400);
