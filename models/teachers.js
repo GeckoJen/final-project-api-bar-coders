@@ -39,4 +39,17 @@ export async function getClassMinutes() {
       const thisWeekData = fullArray.filter(
             (entry) => entry.weekly === weekNumber
       );
+      let minutesArray = [];
+      for (let i = 1; i < 8; i++) {
+            let day = thisWeekData.filter((entry) => entry.daily === i);
+            if (day[0]) {
+                  minutesArray.push({
+                        day: i,
+                        minutes: day[0].minutes_total,
+                  });
+            } else {
+                  minutesArray.push({ day: i, minutes: 0 });
+            }
+      }
+      return minutesArray;
 }
