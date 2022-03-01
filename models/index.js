@@ -3,7 +3,15 @@ import query from "../db/index.js";
 
 export async function getCurrentBooks(id) {
   const data = await query(
-    `SELECT allbooks.id, allbooks.student_id, allbooks.date_created, allbooks.cover, allbooks.title, allbooks.author, allbooks.cover, allbooks.total_pages, summaries.iscomplete, MAX(summaries.current_page) AS current_page, MAX(summaries.current_page)::float/ SUM(DISTINCT allbooks.total_pages)* 100  AS percentageComplete from allbooks FULL OUTER JOIN summaries on allbooks.id = summaries.book_id WHERE allbooks.student_id = $1 AND (summaries.iscomplete is NULL or summaries.iscomplete = false ) GROUP BY allbooks.id, summaries.iscomplete`,
+    `SELECT DISTINCT ON(summaries.book_id) allbooks.id, allbooks.student_id,allbooks.date_created,allbooks.cover,
+    allbooks.title,
+    allbooks.author,total_pages,bool_or(summaries.iscomplete) AS iscomplete,
+    MAX(summaries.current_page) AS current_page, 
+    MAX(summaries.current_page)::float/ SUM(DISTINCT allbooks.total_pages)* 100 AS percentageComplete
+    from allbooks FULL OUTER JOIN summaries on allbooks.id = summaries.book_id 
+    WHERE allbooks.student_id = $1
+    GROUP BY allbooks.id, summaries.book_id HAVING bool_or(summaries.iscomplete) is not true 
+    `,
     [id]
   );
   return data.rows;
@@ -12,16 +20,16 @@ export async function getCurrentBooks(id) {
 export async function getProgress(id) {
   const data = await query(
     `SELECT
-            date_part('week', summaries.date_created::date) AS weekly,
-            COUNT(DISTINCT summaries.date_created),
-            SUM(Minutes_read) AS minutes_total,
-            students.name
-        FROM summaries
-        INNER JOIN students
-        ON  summaries.student_id=students.id
-        WHERE student_id = $1
-        GROUP BY weekly, name
-        ORDER  BY weekly DESC LIMIT 1`,
+    date_part('week', summaries.date_created::date) AS weekly,
+    COUNT(DISTINCT summaries.date_created::date),
+    SUM(Minutes_read) AS minutes_total,
+    students.name
+FROM summaries
+INNER JOIN students
+ON  summaries.student_id=students.id
+WHERE student_id = $1
+GROUP BY weekly, name
+ORDER  BY weekly DESC LIMIT 1`,
     [id]
   );
   return data.rows;
@@ -85,9 +93,13 @@ export async function addWord(studentId, word, definition) {
 }
 
 export async function getStudentFeedback(id) {
-  const data = await query(`SELECT * from feedback WHERE student_id = $1`, [
-    id,
-  ]);
+  const data = await query(
+    `SELECT f.student_id,s.name,t.name AS teacher,f.feedback_text,f.date from feedback f 
+  LEFT JOIN students s on f.student_id = s.id 
+  LEFT JOIN teachers t on s.class = t.class
+  WHERE student_id = $1`,
+    [id]
+  );
   return data.rows;
 }
 
