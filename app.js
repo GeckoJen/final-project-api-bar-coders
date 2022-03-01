@@ -7,6 +7,7 @@ import cors from "cors";
 import logger from "morgan";
 import createError from "http-errors";
 
+import teachersRouter from './routes/teachers.js'
 import usersRouter from "./routes/users.js";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/teachers", teachersRouter);
 app.use("/", usersRouter);
 
 // 401 Unauthorized – client failed to authenticate with the server
