@@ -1,31 +1,37 @@
 {
-  "name": "backend-4-week-project",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "start": "node ./bin/www.js",
-    "dev": "nodemon -r dotenv/config ./bin/www.js",
-    "dbcreatetables": "node -r dotenv/config db/scripts/createTables.js",
-    "dbpopulatetables": "node -r dotenv/config db/scripts/populateTables.js",
-    "dbpopulatestudents": "node -r dotenv/config db/scripts/populatestudents.js",
-    "dbpopulateclassfeedback": "node -r dotenv/config db/scripts/populateclassfeedback.js",
-    "dbpopulatefeedback": "node -r dotenv/config db/scripts/populatefeedback.js",
-    "dbpopulatedictionary": "node -r dotenv/config db/scripts/populatedictionary.js",
-    "dbpopulateallbooks": "node -r dotenv/config db/scripts/populateallbooks.js",
-    "dbpopulatesummaries": "node -r dotenv/config db/scripts/populatesummaries.js"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "dotenv": "^16.0.0",
-    "express": "~4.16.1",
-    "express-oauth2-jwt-bearer": "^1.1.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwks-rsa": "^2.0.5",
-    "morgan": "~1.9.1",
-    "nodemon": "^2.0.15",
-    "pg": "^8.7.3"
-  }
+      "name": "backend-4-week-project",
+      "version": "0.0.0",
+      "private": true,
+      "type": "module",
+      "scripts": {
+            "start": "node ./bin/www.js",
+            "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --setupFiles dotenv/config",
+            "dev": "nodemon -r dotenv/config ./bin/www.js",
+            "dbcreatetables": "node db/scripts/createTables.js",
+            "dbpopulatetables": "node db/scripts/populateTables.js",
+            "dbpopulatestudents": "node db/scripts/populatestudents.js",
+            "dbpopulateclassfeedback": "node db/scripts/populateclassfeedback.js",
+            "dbpopulatefeedback": "node db/scripts/populatefeedback.js",
+            "dbpopulatedictionary": "node db/scripts/populatedictionary.js",
+            "dbpopulateallbooks": "node db/scripts/populateallbooks.js",
+            "dbpopulatesummaries": "node db/scripts/populatesummaries.js"
+      },
+      "dependencies": {
+            "cookie-parser": "~1.4.4",
+            "cors": "^2.8.5",
+            "debug": "~2.6.9",
+            "dotenv": "^16.0.0",
+            "express": "~4.16.1",
+            "express-promise-router": "^4.1.0",
+            "http-errors": "^1.6.2",
+            "morgan": "~1.9.1",
+            "nodemon": "^2.0.15",
+            "pg": "^8.7.3"
+      },
+      "devDependencies": {
+            "@babel/preset-env": "^7.16.11",
+            "cross-env": "^7.0.3",
+            "jest": "^27.5.1",
+            "supertest": "^6.2.2"
+      }
 }
