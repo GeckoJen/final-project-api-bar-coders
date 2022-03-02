@@ -43,6 +43,7 @@ router.post("/summaries", async function (req, res, next) {
                   summary,
                   isComplete,
                   minutesRead,
+                  pagesRead,
             } = req.body;
             const updateBook = await newSummary(
                   bookId,
@@ -50,7 +51,8 @@ router.post("/summaries", async function (req, res, next) {
                   currentPage,
                   summary,
                   isComplete,
-                  minutesRead
+                  minutesRead,
+                  pagesRead
             );
             res.json({
                   success: true,
@@ -162,7 +164,6 @@ router.post("/dictionary", async function (req, res, next) {
 // new word or old word - fetch to api - if input value api request
 
 router.get("/feedback/:id", async function (req, res) {
-
       try {
             const { id } = req.params;
             const studentFeedBack = await getStudentFeedback(id);
@@ -180,7 +181,6 @@ router.get("/feedback/:id", async function (req, res) {
                   error: err.message,
             });
       }
-
 });
 
 // for the backenders
