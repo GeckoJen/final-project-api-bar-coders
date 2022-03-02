@@ -43,6 +43,7 @@ router.post("/summaries", async function (req, res, next) {
                   summary,
                   isComplete,
                   minutesRead,
+                  pagesRead
             } = req.body;
             const updateBook = await newSummary(
                   bookId,
@@ -50,7 +51,8 @@ router.post("/summaries", async function (req, res, next) {
                   currentPage,
                   summary,
                   isComplete,
-                  minutesRead
+                  minutesRead,
+                  pagesRead
             );
             res.json({
                   success: true,

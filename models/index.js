@@ -54,11 +54,12 @@ export async function newSummary(
   currentPage,
   summary,
   isComplete,
-  minutesRead
+  minutesRead,
+  pagesRead,
 ) {
   const data = await query(
-    `INSERT INTO summaries (book_id, student_id, current_page,summary,isComplete,minutes_read) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;`,
-    [bookId, studentId, currentPage, summary, isComplete, minutesRead]
+    `INSERT INTO summaries (book_id, student_id, current_page,summary,isComplete,minutes_read,number_pages) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
+    [bookId, studentId, currentPage, summary, isComplete, minutesRead, pagesRead]
   );
 }
 
