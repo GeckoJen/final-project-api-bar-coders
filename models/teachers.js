@@ -199,3 +199,144 @@ export async function getIndividualStudentWeeklyReading(id) {
             ? data.rows
             : [{ weekly: result, count: 0, name: data.rows[0].name }];
 }
+
+
+export async function getStudentMinutes(id) {
+  const data = await query(
+    `SELECT
+  summaries.date_created,
+    date_part('dow', summaries.date_created::date) AS daily,
+      date_part('week', summaries.date_created::date) AS weekly,
+      SUM(Minutes_read) AS minutes_total
+  FROM summaries
+  WHERE student_id = $1
+  GROUP BY weekly, daily, summaries.date_created
+  ORDER  BY weekly DESC;`,
+    [id]
+  );
+  const fullArray = data.rows;
+  const weekNumber = fullArray[0].weekly;
+  const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
+
+  let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
+
+  let minutesArray = [];
+  for (let i = 1; i < 7; i++) {
+    let day = thisWeekData.filter((entry) => entry.daily === i);
+    var ms = new Date(sunday).getTime() + 86400000 * i;
+    var newdate = new Date(ms);
+    if (day[0]) {
+      minutesArray.push({
+        date: newdate,
+        minutes: day[0].minutes_total,
+      });
+    } else {
+      minutesArray.push({ date: newdate, minutes: 0 });
+    }
+  }
+  let day = thisWeekData.filter((entry) => entry.daily === 0);
+  var ms = new Date(sunday).getTime() + 86400000 * 7;
+  var newdate = new Date(ms);
+  if (day[0]) {
+    minutesArray.push({
+      date: newdate,
+      minutes: day[0].minutes_total,
+    });
+  } else {
+    minutesArray.push({ date: newdate, minutes: 0 });
+  }
+  return minutesArray;
+}
+
+export async function getStudentPages(id) {
+  const data = await query(`SELECT
+  summaries.date_created,
+    date_part('dow', summaries.date_created::date) AS daily,
+      date_part('week', summaries.date_created::date) AS weekly,
+      SUM(number_pages) as pages_read
+  FROM summaries
+  WHERE student_id = $1
+  GROUP BY  summaries.date_created, weekly, daily
+  ORDER  BY summaries.date_created DESC;`, [id]);
+  const fullArray = data.rows;
+  const weekNumber = fullArray[0].weekly;
+  const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
+
+  console.log(thisWeekData);
+
+  let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
+
+  let pagesArray = [];
+  for (let i = 1; i < 7; i++) {
+    let day = thisWeekData.filter((entry) => entry.daily === i);
+    var ms = new Date(sunday).getTime() + 86400000 * i;
+    var newdate = new Date(ms);
+    if (day[0]) {
+      pagesArray.push({
+        date: newdate,
+        pages: day[0].pages_read,
+      });
+    } else {
+      pagesArray.push({ date: newdate, pages: 0 });
+    }
+  }
+  let day = thisWeekData.filter((entry) => entry.daily === 0);
+  var ms = new Date(sunday).getTime() + 86400000 * 7;
+  var newdate = new Date(ms);
+  if (day[0]) {
+    pagesArray.push({
+      date: newdate,
+      pages: day[0].pages_read,
+    });
+  } else {
+    pagesArray.push({ date: newdate, pages: 0 });
+  }
+  return pagesArray;
+}
+
+export async function getStudentBooksCompleted(id) {
+  const data = await query(`SELECT
+  summaries.date_created,
+    date_part('dow', summaries.date_created::date) AS daily,
+      date_part('week', summaries.date_created::date) AS weekly,
+      COUNT(book_id),
+      iscomplete
+  FROM summaries
+  WHERE iscomplete = true AND student_id = $1
+  GROUP BY  summaries.date_created, weekly, daily, iscomplete
+  ORDER  BY summaries.date_created DESC;`, [id]);
+  const fullArray = data.rows;
+  const weekNumber = fullArray[0].weekly;
+  const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
+
+  console.log(thisWeekData);
+
+  let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
+
+  let countArray = [];
+  for (let i = 1; i < 7; i++) {
+    let day = thisWeekData.filter((entry) => entry.daily === i);
+    var ms = new Date(sunday).getTime() + 86400000 * i;
+    var newdate = new Date(ms);
+    if (day[0]) {
+      countArray.push({
+        date: newdate,
+        completed: day[0].count,
+      });
+    } else {
+      countArray.push({ date: newdate, completed: 0 });
+    }
+  }
+  let day = thisWeekData.filter((entry) => entry.daily === 0);
+  var ms = new Date(sunday).getTime() + 86400000 * 7;
+  var newdate = new Date(ms);
+  if (day[0]) {
+    countArray.push({
+      date: newdate,
+      completed: day[0].count,
+    });
+  } else {
+    countArray.push({ date: newdate, completed: 0 });
+  }
+  return countArray;
+}

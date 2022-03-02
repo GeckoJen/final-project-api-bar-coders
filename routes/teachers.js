@@ -8,6 +8,9 @@ import {
       getClassPages,
       getClassBooksCompleted,
       getIndividualStudentWeeklyReading,
+      getStudentMinutes,
+      getStudentPages,
+      getStudentBooksCompleted,
 } from "../models/teachers.js";
 
 router.get("/class", async function (req, res, next) {
@@ -28,10 +31,16 @@ router.get("/class", async function (req, res, next) {
 
 router.get("/student/:id", async function (req, res, next) {
       const { id } = req.params;
-      const studentWeeklyReading = await getIndividualStudentWeeklyReading(id);
+    const studentWeeklyReading = await getIndividualStudentWeeklyReading(id);
+    const studentWeeklyMinutes = await getStudentMinutes(id);
+    const studentWeeklyPages = await getStudentPages(id);
+    const studentCompletedBooks = await getStudentBooksCompleted(id);
       res.json({
-            success: true,
-            studentWeeklyReading: studentWeeklyReading,
+        success: true,
+        studentWeeklyReading: studentWeeklyReading,
+        studentWeeklyMinutes: studentWeeklyMinutes,
+        studentWeeklyPages: studentWeeklyPages,
+        studentCompletedBooks: studentCompletedBooks,
       });
 });
 
