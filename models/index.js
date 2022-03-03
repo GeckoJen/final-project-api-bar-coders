@@ -1,6 +1,12 @@
 // models tbc
 import query from "../db/index.js";
 
+export async function getStudentName(id) {
+  const data = await query(`SELECT name FROM students WHERE id = $1;`, [id])
+  return data.rows;
+}
+
+
 export async function getCurrentBooks(id) {
       const data = await query(
             `SELECT DISTINCT ON(allbooks.id) allbooks.id, allbooks.student_id,allbooks.date_created,allbooks.cover,

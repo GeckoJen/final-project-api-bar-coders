@@ -11,18 +11,22 @@ import {
       addWord,
       getStudentFeedback,
       getClassFeedback,
+      getStudentName,
 } from "../models/index.js";
+
 
 // GET student details for homepage and log your reading page
 router.get("/books/:id", async function (req, res, next) {
       const { id } = req.params;
       const bookData = await getCurrentBooks(id);
       const progressData = await getProgress(id);
+      const studentName = await getStudentName(id);
       if (bookData.length > 0) {
             res.json({
                   success: true,
                   progressData: progressData,
                   bookData: bookData,
+                  name: studentName
             });
       } else {
             res.status(400);
