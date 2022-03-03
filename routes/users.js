@@ -18,7 +18,7 @@ router.get("/books/:id", async function (req, res, next) {
       const { id } = req.params;
       const bookData = await getCurrentBooks(id);
       const progressData = await getProgress(id);
-      if (progressData.length > 0) {
+      if (bookdata.length > 0) {
             res.json({
                   success: true,
                   progressData: progressData,
