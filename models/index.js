@@ -3,7 +3,7 @@ import query from "../db/index.js";
 
 export async function getCurrentBooks(id) {
       const data = await query(
-            `SELECT DISTINCT ON(allbooks.book_id) allbooks.id, allbooks.student_id,allbooks.date_created,allbooks.cover,
+            `SELECT DISTINCT ON(allbooks.id) allbooks.id, allbooks.student_id,allbooks.date_created,allbooks.cover,
     allbooks.title,
     allbooks.author,total_pages,bool_or(summaries.iscomplete) AS iscomplete,
     MAX(summaries.current_page) AS current_page, 
