@@ -3,45 +3,55 @@ import Router from "express-promise-router";
 const router = Router();
 
 import {
-      getClassList,
-      getClassMinutes,
-      getClassPages,
-      getClassBooksCompleted,
-      getIndividualStudentWeeklyReading,
-      getStudentMinutes,
-      getStudentPages,
-      getStudentBooksCompleted,
+  getClassList,
+  getClassMinutes,
+  getClassPages,
+  getClassBooksCompleted,
+  getIndividualStudentWeeklyReading,
+  getStudentMinutes,
+  getStudentPages,
+  getStudentBooksCompleted,
+  sendClassFeedback,
 } from "../models/teachers.js";
 
 router.get("/class", async function (req, res, next) {
-      const data = await getClassList();
-      const minutesReadByClass = await getClassMinutes();
-      const pagesReadByClass = await getClassPages();
-      const booksCompletedByClass = await getClassBooksCompleted();
-      res.json({
-            success: true,
-            barChartData: data.totalData,
-            classListLessThan4Times: data.under4Data,
-            classList4TimesOrMore: data.over4Data,
-            minutesReadByClass: minutesReadByClass,
-            pagesReadByClass: pagesReadByClass,
-            booksCompletedByClass: booksCompletedByClass,
-      });
+  const data = await getClassList();
+  const minutesReadByClass = await getClassMinutes();
+  const pagesReadByClass = await getClassPages();
+  const booksCompletedByClass = await getClassBooksCompleted();
+  res.json({
+    success: true,
+    barChartData: data.totalData,
+    classListLessThan4Times: data.under4Data,
+    classList4TimesOrMore: data.over4Data,
+    minutesReadByClass: minutesReadByClass,
+    pagesReadByClass: pagesReadByClass,
+    booksCompletedByClass: booksCompletedByClass,
+  });
 });
 
 router.get("/student/:id", async function (req, res, next) {
-      const { id } = req.params;
-    const studentWeeklyReading = await getIndividualStudentWeeklyReading(id);
-    const studentWeeklyMinutes = await getStudentMinutes(id);
-    const studentWeeklyPages = await getStudentPages(id);
-    const studentCompletedBooks = await getStudentBooksCompleted(id);
-      res.json({
-        success: true,
-        studentWeeklyReading: studentWeeklyReading,
-        studentWeeklyMinutes: studentWeeklyMinutes,
-        studentWeeklyPages: studentWeeklyPages,
-        studentCompletedBooks: studentCompletedBooks,
-      });
+  const { id } = req.params;
+  const studentWeeklyReading = await getIndividualStudentWeeklyReading(id);
+  const studentWeeklyMinutes = await getStudentMinutes(id);
+  const studentWeeklyPages = await getStudentPages(id);
+  const studentCompletedBooks = await getStudentBooksCompleted(id);
+  res.json({
+    success: true,
+    studentWeeklyReading: studentWeeklyReading,
+    studentWeeklyMinutes: studentWeeklyMinutes,
+    studentWeeklyPages: studentWeeklyPages,
+    studentCompletedBooks: studentCompletedBooks,
+  });
+});
+
+router.post("/class/feedback", async function (req, res) {
+  const { feedbackText, teacherId } = req.body;
+  const message = await sendClassFeedback(feedbackText, teacherId);
+  res.json({
+    success: true,
+    payload: message,
+  });
 });
 
 export default router;
