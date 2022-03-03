@@ -19,7 +19,7 @@ router.get("/books/:id", async function (req, res, next) {
       const { id } = req.params;
       const bookData = await getCurrentBooks(id);
       const progressData = await getProgress(id);
-      if (progressData.length > 0) {
+      if (bookData.length > 0) {
             res.json({
                   success: true,
                   progressData: progressData,
@@ -44,7 +44,7 @@ router.post("/summaries", async function (req, res, next) {
                   summary,
                   isComplete,
                   minutesRead,
-                  pagesRead
+                  pagesRead,
             } = req.body;
             const updateBook = await newSummary(
                   bookId,
@@ -165,7 +165,6 @@ router.post("/dictionary", async function (req, res, next) {
 // new word or old word - fetch to api - if input value api request
 
 router.get("/feedback/:id", async function (req, res) {
-
       try {
             const { id } = req.params;
             const studentFeedBack = await getStudentFeedback(id);
@@ -183,7 +182,6 @@ router.get("/feedback/:id", async function (req, res) {
                   error: err.message,
             });
       }
-
 });
 
 // for the backenders

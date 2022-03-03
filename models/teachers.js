@@ -98,8 +98,6 @@ export async function getClassPages() {
             (entry) => entry.weekly === weekNumber
       );
 
-      console.log(thisWeekData);
-
       let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
 
       let pagesArray = [];
@@ -146,8 +144,6 @@ export async function getClassBooksCompleted() {
       const thisWeekData = fullArray.filter(
             (entry) => entry.weekly === weekNumber
       );
-
-      console.log(thisWeekData);
 
       let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
 
@@ -268,8 +264,6 @@ export async function getStudentPages(id) {
             (entry) => entry.weekly === weekNumber
       );
 
-      console.log(thisWeekData);
-
       let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
 
       let pagesArray = [];
@@ -319,8 +313,6 @@ export async function getStudentBooksCompleted(id) {
       const thisWeekData = fullArray.filter(
             (entry) => entry.weekly === weekNumber
       );
-
-      console.log(thisWeekData);
 
       let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
 
@@ -385,13 +377,14 @@ export async function getStudentFeedback(id) {
 }
 
 export async function getStudentSummaries(id) {
-    const data = await query(
-      `SELECT summaries.date_created, summaries.summary, summaries.number_pages, summaries.minutes_read, allbooks.title, allbooks.author
+      const data = await query(
+            `SELECT summaries.date_created, summaries.summary, summaries.number_pages, summaries.minutes_read, allbooks.title, allbooks.author
 FROM summaries
 INNER JOIN allbooks
 ON  summaries.book_id=allbooks.id
 WHERE summaries.student_id = $1
-ORDER  BY summaries.date_created DESC;`, [id]
-    );
-    return data.rows;
+ORDER  BY summaries.date_created DESC;`,
+            [id]
+      );
+      return data.rows;
 }
