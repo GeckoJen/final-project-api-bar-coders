@@ -1,7 +1,8 @@
 import express from "express";
 import path from "path";
 
-import { auth } from "express-oauth2-jwt-bearer";
+// import { auth } from "express-oauth2-jwt-bearer";
+import middleware from "./custom-middleware/index.js";
 import __dirname from "./dirname.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -11,26 +12,13 @@ import usersRouter from "./routes/users.js";
 
 const app = express();
 
-export const checkJwt = auth({
-  audience: "https://fourweekproject.herokuapp.com/",
-  issuerBaseURL: `https://book-worms.eu.auth0.com`,
-});
-
-// getAccessToken() {
-//       const accessToken = localStorage.getItem('access_token');
-//       if (!accessToken) {
-//         throw new Error('No access token found');
-//       }
-//       return accessToken;
-//     }
-
 app.use(logger("dev"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(checkJwt);
+app.use(middleware.decodeToken);
 app.use("/", usersRouter);
 
 app.use(function (req, res, next) {
