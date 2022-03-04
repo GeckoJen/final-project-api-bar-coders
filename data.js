@@ -219,6 +219,7 @@ export const summaryData = [
   {
     student_id: "s01",
     book_id: 1,
+    number_pages: 50,
     current_page: 50,
     summary: "Not great!",
     isComplete: "false",
@@ -227,6 +228,7 @@ export const summaryData = [
   {
     student_id: "s01",
     book_id: 2,
+    number_pages: 40,
     current_page: 100,
     summary: "Ok!",
     isComplete: "false",
@@ -235,6 +237,7 @@ export const summaryData = [
   {
     student_id: "s01",
     book_id: 3,
+    number_pages: 18,
     current_page: 250,
     summary: "Amazing!",
     isComplete: "true",
@@ -243,6 +246,7 @@ export const summaryData = [
   {
     student_id: "s02",
     book_id: 4,
+    number_pages: 20,
     current_page: 50,
     summary: "Not great!",
     isComplete: "false",
@@ -251,6 +255,7 @@ export const summaryData = [
   {
     student_id: "s02",
     book_id: 5,
+    number_pages: 40,
     current_page: 100,
     summary: "Ok!",
     isComplete: "false",
@@ -259,6 +264,7 @@ export const summaryData = [
   {
     student_id: "s02",
     book_id: 6,
+    number_pages: 30,
     current_page: 250,
     summary: "Amazing!",
     isComplete: "true",
@@ -267,6 +273,7 @@ export const summaryData = [
   {
     student_id: "s03",
     book_id: 7,
+    number_pages: 20,
     current_page: 50,
     summary: "Not great!",
     isComplete: "false",
@@ -275,6 +282,7 @@ export const summaryData = [
   {
     student_id: "s03",
     book_id: 8,
+    number_pages: 15,
     current_page: 100,
     summary: "Ok!",
     isComplete: "false",
@@ -283,6 +291,7 @@ export const summaryData = [
   {
     student_id: "s03",
     book_id: 9,
+    number_pages: 80,
     current_page: 250,
     summary: "Amazing!",
     isComplete: "true",

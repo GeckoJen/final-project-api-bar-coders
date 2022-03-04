@@ -1,6 +1,7 @@
 import createError from "http-errors";
 import Router from "express-promise-router";
 const router = Router();
+
 import {
       getCurrentBooks,
       getProgress,
@@ -21,6 +22,7 @@ router.get("/books/:id", async function (req, res, next) {
       const bookData = await getCurrentBooks(id);
       const progressData = await getProgress(id);
       const studentName = await getStudentName(id);
+
       if (bookData.length > 0) {
             res.json({
                   success: true,

@@ -27,12 +27,13 @@ describe("get students current books", () => {
 describe("given summary details", () => {
       it("should respond with a 200 status once posted", async () => {
             const res = await request(app).post("/summaries").send({
-                  bookId: 22,
+                  bookId: 1,
                   studentId: "s01",
                   currentPage: 184,
                   summary: "this is a test!",
                   isComplete: true,
                   minutesRead: 20,
+                  pagesRead: 22,
             });
             expect(res.statusCode).toEqual(200);
             expect(res.body.success).toEqual(true);
@@ -48,6 +49,7 @@ describe("given bad summary details", () => {
                   summary: "this is a test!",
                   isComplete: true,
                   minutesRead: 20,
+                  pagesRead: 22,
             });
             expect(res.statusCode).toEqual(400);
             expect(res.body.success).toEqual(false);
@@ -113,7 +115,6 @@ describe("given dictionary details", () => {
                   studentId: "s01",
                   word: "test",
             });
-            console.log(res.body);
             expect(res.statusCode).toEqual(200);
             expect(res.body.success).toEqual(true);
       });

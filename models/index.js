@@ -55,26 +55,20 @@ export async function deleteBook(id) {
       );
 }
 export async function newSummary(
-      bookId,
-      studentId,
-      currentPage,
-      summary,
-      isComplete,
-      minutesRead,
-      pagesRead
+
+  bookId,
+  studentId,
+  currentPage,
+  summary,
+  isComplete,
+  minutesRead,
+  pagesRead,
 ) {
-      const data = await query(
-            `INSERT INTO summaries (book_id, student_id, current_page,summary,isComplete,minutes_read, number_pages) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
-            [
-                  bookId,
-                  studentId,
-                  currentPage,
-                  summary,
-                  isComplete,
-                  minutesRead,
-                  pagesRead,
-            ]
-      );
+  const data = await query(
+    `INSERT INTO summaries (book_id, student_id, current_page,summary,isComplete,minutes_read,number_pages) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
+    [bookId, studentId, currentPage, summary, isComplete, minutesRead, pagesRead]
+  );
+
 }
 
 export async function deleteSummary(id) {

@@ -58,6 +58,7 @@ const sqlString = `CREATE TABLE IF NOT EXISTS teachers (
         student_id VARCHAR,
       date_created DATE DEFAULT CURRENT_DATE,
       book_id INT,
+      number_pages INT,
       current_page INT,
       summary VARCHAR,
       isComplete boolean,
