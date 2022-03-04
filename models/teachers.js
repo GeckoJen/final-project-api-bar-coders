@@ -309,17 +309,31 @@ export async function getStudentBooksCompleted(id) {
             [id]
       );
       const fullArray = data.rows;
-      const weekNumber = fullArray[0].weekly;
-      const thisWeekData = fullArray.filter(
-            (entry) => entry.weekly === weekNumber
-      );
 
-      let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
+      if (fullArray.length > 0) {
+            const weekNumber = fullArray[0].weekly;
+            const thisWeekData = fullArray.filter(
+                  (entry) => entry.weekly === weekNumber
+            );
 
-      let countArray = [];
-      for (let i = 1; i < 7; i++) {
-            let day = thisWeekData.filter((entry) => entry.daily === i);
-            var ms = new Date(sunday).getTime() + 86400000 * i;
+            let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
+
+            let countArray = [];
+            for (let i = 1; i < 7; i++) {
+                  let day = thisWeekData.filter((entry) => entry.daily === i);
+                  var ms = new Date(sunday).getTime() + 86400000 * i;
+                  var newdate = new Date(ms);
+                  if (day[0]) {
+                        countArray.push({
+                              date: newdate,
+                              completed: day[0].count,
+                        });
+                  } else {
+                        countArray.push({ date: newdate, completed: 0 });
+                  }
+            }
+            let day = thisWeekData.filter((entry) => entry.daily === 0);
+            var ms = new Date(sunday).getTime() + 86400000 * 7;
             var newdate = new Date(ms);
             if (day[0]) {
                   countArray.push({
@@ -329,19 +343,9 @@ export async function getStudentBooksCompleted(id) {
             } else {
                   countArray.push({ date: newdate, completed: 0 });
             }
-      }
-      let day = thisWeekData.filter((entry) => entry.daily === 0);
-      var ms = new Date(sunday).getTime() + 86400000 * 7;
-      var newdate = new Date(ms);
-      if (day[0]) {
-            countArray.push({
-                  date: newdate,
-                  completed: day[0].count,
-            });
-      } else {
-            countArray.push({ date: newdate, completed: 0 });
-      }
-      return countArray;
+            return countArray;
+      } else { return fullArray; }
+      
 }
 
 export async function sendClassFeedback(feedback_text, teacher_id) {
