@@ -54,14 +54,14 @@ describe("given incorrect feedback details", () => {
       });
 });
 
-describe("given correct student id", () => {
+describe("given correct teacher id", () => {
       it("returns status code 200", async () => {
             const res = await request(app).get("/teachers/class/feedback/t01");
             expect(res.statusCode).toEqual(200);
       });
 });
 
-describe("given incorrect student id", () => {
+describe("given incorrect teacher id", () => {
       it("returns status code 400", async () => {
             const res = await request(app).get("/teachers/class/feedback/t99");
             expect(res.statusCode).toEqual(400);
@@ -82,7 +82,7 @@ describe("given student feedback details", () => {
 });
 
 describe("given student feedback details", () => {
-      it("should respond with a 200 status once posted", async () => {
+      it("should respond with a 400 status once posted", async () => {
             const res = await request(app)
                   .post("/teachers/student/feedback")
                   .send({
@@ -90,6 +90,41 @@ describe("given student feedback details", () => {
                         feedback_text: 1,
                   });
             expect(res.statusCode).toEqual(400);
-            expect(res.body.success).toEqual(true);
+      });
+});
+
+describe("given correct student id", () => {
+      it("returns status code 200", async () => {
+            const res = await request(app).get(
+                  "/teachers/student/feedback/s01"
+            );
+            expect(res.statusCode).toEqual(200);
+      });
+});
+
+describe("given incorrect student id", () => {
+      it("returns status code 200", async () => {
+            const res = await request(app).get(
+                  "/teachers/student/feedback/s99"
+            );
+            expect(res.statusCode).toEqual(400);
+      });
+});
+
+describe("given correct student id", () => {
+      it("returns status code 200", async () => {
+            const res = await request(app).get(
+                  "/teachers/student/summaries/s01"
+            );
+            expect(res.statusCode).toEqual(200);
+      });
+});
+
+describe("given incorrect student id", () => {
+      it("returns status code 200", async () => {
+            const res = await request(app).get(
+                  "/teachers/student/summaries/s99"
+            );
+            expect(res.statusCode).toEqual(400);
       });
 });
