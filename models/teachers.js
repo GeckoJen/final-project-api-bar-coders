@@ -1,9 +1,11 @@
 import query from "../db/index.js";
 
-let currentdate = new Date();
-var oneJan = new Date(currentdate.getFullYear(), 0, 1);
-var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
-var result = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7) - 1;
+// let currentdate = new Date();
+// var oneJan = new Date(currentdate.getFullYear(), 0, 1);
+// var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+// var result = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7) - 1;
+
+const result = 9;
 
 function getSundayFromWeekNum(weekNum, year) {
   const sunday = new Date(year, 0, 1 + weekNum * 7);
@@ -25,7 +27,8 @@ ON  summaries.student_id=students.id
 GROUP BY weekly, students.name, student_id
 ORDER  BY weekly DESC `);
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
   const under4Data = thisWeekData.filter((entry) => entry.count < 4);
   const over4Data = thisWeekData.filter((entry) => entry.count >= 4);
@@ -46,7 +49,8 @@ export async function getClassMinutes() {
   GROUP BY weekly, daily, summaries.date_created
   ORDER  BY weekly DESC`);
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
 
   let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
@@ -89,7 +93,8 @@ export async function getClassPages() {
   GROUP BY  summaries.date_created, weekly, daily
   ORDER  BY summaries.date_created DESC;`);
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
 
   let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
@@ -134,7 +139,8 @@ export async function getClassBooksCompleted() {
   GROUP BY  summaries.date_created, weekly, daily, iscomplete
   ORDER  BY summaries.date_created DESC;`);
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
 
   let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
@@ -202,7 +208,8 @@ export async function getStudentMinutes(id) {
     [id]
   );
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
 
   let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
@@ -249,7 +256,8 @@ export async function getStudentPages(id) {
     [id]
   );
   const fullArray = data.rows;
-  const weekNumber = fullArray[0].weekly;
+  // const weekNumber = fullArray[0].weekly;
+  const weekNumber = result;
   const thisWeekData = fullArray.filter((entry) => entry.weekly === weekNumber);
 
   let sunday = getSundayFromWeekNum(weekNumber, new Date().getFullYear());
@@ -299,7 +307,8 @@ export async function getStudentBooksCompleted(id) {
   const fullArray = data.rows;
 
   if (fullArray.length > 0) {
-    const weekNumber = fullArray[0].weekly;
+    // const weekNumber = fullArray[0].weekly;
+    const weekNumber = result;
     const thisWeekData = fullArray.filter(
       (entry) => entry.weekly === weekNumber
     );
