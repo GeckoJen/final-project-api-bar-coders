@@ -15,7 +15,6 @@ import {
       getStudentName,
 } from "../models/index.js";
 
-
 // GET student details for homepage and log your reading page
 router.get("/books/:id", async function (req, res, next) {
       const { id } = req.params;
@@ -28,7 +27,7 @@ router.get("/books/:id", async function (req, res, next) {
                   success: true,
                   progressData: progressData,
                   bookData: bookData,
-                  name: studentName
+                  name: studentName,
             });
       } else {
             res.status(400);
@@ -116,7 +115,7 @@ router.get("/completedbooks/:id", async function (req, res, next) {
             res.status(400);
             res.json({
                   success: false,
-                  error: "the student id does not exist",
+                  error: "the student id does not exist in order to get books",
             });
       }
 });
@@ -134,7 +133,7 @@ router.get("/dictionary/:id", async function (req, res) {
             res.status(400);
             res.json({
                   success: false,
-                  error: "the student id does not exist",
+                  error: "the student id does not exist in order to get dictionary words",
             });
       }
 });
