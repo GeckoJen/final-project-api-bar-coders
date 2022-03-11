@@ -33,6 +33,7 @@ router.get("/class", async function (req, res, next) {
                   minutesReadByClass: minutesReadByClass,
                   pagesReadByClass: pagesReadByClass,
                   booksCompletedByClass: booksCompletedByClass,
+
             });
       } catch (err) {
             res.status(400);

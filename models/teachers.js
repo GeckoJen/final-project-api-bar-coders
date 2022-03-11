@@ -19,6 +19,7 @@ export async function getClassList() {
   const data = await query(`SELECT
     date_part('week', summaries.date_created::date) AS weekly,
     COUNT(DISTINCT summaries.date_created::date),
+    SUM(minutes_read),
    student_id,
     students.name
 FROM summaries
@@ -36,6 +37,7 @@ ORDER  BY weekly DESC `);
     totalData: thisWeekData,
     under4Data: under4Data,
     over4Data: over4Data,
+    
   };
 }
 
