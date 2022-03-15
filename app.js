@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import middleware from "./custom-middleware/index.js";
+// import middleware from "./custom-middleware/index.js";
 
 import __dirname from "./dirname.js";
 import cookieParser from "cookie-parser";
