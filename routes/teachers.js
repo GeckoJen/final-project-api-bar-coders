@@ -90,9 +90,9 @@ router.post("/class/feedback", async function (req, res, next) {
 });
 
 //gets all messages sent to whole class
-router.get("/class/feedback/:id", async function (req, res) {
-      const { id } = req.params;
-      const data = await getClassFeedback(id);
+router.get("/class/feedback/", async function (req, res) {
+      // const { id } = req.params;
+      const data = await getClassFeedback();
       if (data.length > 0) {
             res.json({
                   success: true,

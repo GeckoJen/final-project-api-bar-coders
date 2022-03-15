@@ -362,11 +362,10 @@ export async function sendClassFeedback(feedback_text, teacher_id) {
   );
 }
 
-export async function getClassFeedback(id) {
+export async function getClassFeedback() {
   const data = await query(
-    `SELECT * FROM classfeedback WHERE teacher_id = $1
-  ORDER BY Date DESC;`,
-    [id]
+    `SELECT * FROM classfeedback
+  ORDER BY Date DESC;`
   );
   return data.rows;
 }
